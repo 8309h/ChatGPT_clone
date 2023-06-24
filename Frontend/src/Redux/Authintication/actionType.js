@@ -1,0 +1,4 @@
+export const REQUEST= "REQUEST"
+export const FAIL= "FAIL"
+export const LOGIN_SUCESSFUL="LOGIN_SUCESSFUL"
+export const SIGNUP_SUCESSFUL="SIGNUP_SUCESSFUL"

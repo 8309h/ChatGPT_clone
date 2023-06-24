@@ -2,13 +2,18 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-import {FcGoogle} from 'react-icons/fc';
-import {AiFillGithub} from 'react-icons/ai'
+import { FcGoogle } from 'react-icons/fc';
+import { AiFillGithub } from 'react-icons/ai'
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../Redux/Authintication/action';
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
 
+  const {token,isAuth} = useSelector(st=>st.authReducer)
+  console.log(isAuth);
   const handleEmailChange = (e) => {
     setEmail(e.target.value);
   };
@@ -24,20 +29,22 @@ const LoginPage = () => {
       email,
       password,
     };
-    axios
-      .post('https://reqres.in/api/login', payload)
-      .then((res) => {
-        console.log(res.data.token);
-      })
-      .catch((err) => {
-        console.log(err.message);
-      })
-      .finally((final) => {
-        console.log(final);
-      });
-    console.log(payload);
-  };
 
+    dispatch(login(payload));
+    // axios
+    //   .post('https://reqres.in/api/login', payload)
+    //   .then((res) => {
+    //     console.log(res.data.token);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err.message);
+    //   })
+    //   .finally((final) => {
+    //     console.log(final);
+    //   });
+    // console.log(payload);
+  };
+console.log(token);
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="w-full max-w-xs">
@@ -80,21 +87,19 @@ const LoginPage = () => {
             </button>
           </div>
           <br />
-
-          <div className=" justify-center">
+        </form>
+        <div className=" justify-center">
           <button className="flex bg-blue-400 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-auto">
-           <FcGoogle width={'50px'} className='mt-1 mr-4'/>
-           <p> Continue with Google</p>
+            <FcGoogle width={'50px'} className='mt-1 mr-4' />
+            <p> Continue with Google</p>
           </button>
           <br />
-         
+
           <button className="flex bg-black hover:bg-gray-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-auto">
-          <AiFillGithub width={'50px'} className='mt-1 mr-4'/>
-           <p> Continue with GitHub</p>
+            <AiFillGithub width={'50px'} className='mt-1 mr-4' />
+            <p> Continue with GitHub</p>
           </button>
         </div>
-        </form>
-        
         <br />
         <Link to={'/signup'}>No Account Make a Account</Link>
       </div>
