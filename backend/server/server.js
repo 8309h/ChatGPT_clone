@@ -5,8 +5,10 @@ import { Configuration, OpenAIApi } from 'openai'
 
 dotenv.config()
 
+
 const app = express()
 app.use(cors())
+
 app.use(express.json())
 
 const configuration = new Configuration({
