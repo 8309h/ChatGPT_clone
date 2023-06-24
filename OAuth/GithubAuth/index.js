@@ -24,8 +24,8 @@ app.get("/auth/github", async (req, res) => {
             "content-type": "application/json"
         },
         body: JSON.stringify({
-            client_id: process.env.githubclientid || "b91a36856e5979621be8",
-            client_secret: process.env.githubclientsecret || "01afd84bb6a097e4d5e3007a662100dc0ee738d7",
+            client_id: process.env.githubclientid ,
+            client_secret: process.env.githubclientsecret ,
             code:code
         })
     }).then((res) => res.json())
