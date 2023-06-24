@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+
+import {FcGoogle} from 'react-icons/fc';
+import {AiFillGithub} from 'react-icons/ai'
+
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,15 +21,20 @@ const LoginPage = () => {
     e.preventDefault();
     // TODO: Handle login logic here
     const payload = {
-      email, password
-    }
-    axios.post('https://reqres.in/api/login', payload).then((res) => {
-      console.log(res.data.token);
-    }).catch((err) => {
-      console.log(err.message);
-    }).finally((final) => {
-      console.log(final);
-    })
+      email,
+      password,
+    };
+    axios
+      .post('https://reqres.in/api/login', payload)
+      .then((res) => {
+        console.log(res.data.token);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      })
+      .finally((final) => {
+        console.log(final);
+      });
     console.log(payload);
   };
 
@@ -33,7 +42,7 @@ const LoginPage = () => {
     <div className="flex justify-center items-center h-screen">
       <div className="w-full max-w-xs">
         <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-4xl">Log In Here ✌️</h1>
-        <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
+        <form onSubmit={handleSubmit} className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 ">
           <div className="mb-4">
             <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="email">
               Email
@@ -69,10 +78,25 @@ const LoginPage = () => {
             >
               Log In
             </button>
-
           </div>
+          <br />
+
+          <div className=" justify-center">
+          <button className="flex bg-blue-400 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-auto">
+           <FcGoogle width={'50px'} className='mt-1 mr-4'/>
+           <p> Continue with Google</p>
+          </button>
+          <br />
+         
+          <button className="flex bg-black hover:bg-gray-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mx-auto">
+          <AiFillGithub width={'50px'} className='mt-1 mr-4'/>
+           <p> Continue with GitHub</p>
+          </button>
+        </div>
         </form>
-        <Link to={'/signup'}>No Account Make a Accoutn</Link>
+        
+        <br />
+        <Link to={'/signup'}>No Account Make a Account</Link>
       </div>
     </div>
   );
