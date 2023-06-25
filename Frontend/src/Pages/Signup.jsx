@@ -1,4 +1,8 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { signup } from '../Redux/Authintication/action';
+import {  useNavigate } from 'react-router-dom';
+import Loader from '../Component/Loader';
 
 const SignupPage = () => {
     const [formData, setFormData] = useState({
@@ -9,6 +13,10 @@ const SignupPage = () => {
         age: '',
         gender: '',
     });
+    const dispatch = useDispatch();
+   
+  const navigate = useNavigate();
+  const {isLoading} = useSelector(st=>st.authReducer);
     const { name,
         email,
         password,
@@ -36,8 +44,13 @@ const SignupPage = () => {
             gender
         }
         console.log(payload);
+        dispatch(signup(payload)).then((res)=>{
+            navigate('/login')
+        })
     };
-
+if(isLoading){
+    return <Loader/>
+}
     return (
         <div className="flex justify-center items-center h-screen">
        

@@ -1,17 +1,21 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 import { FcGoogle } from 'react-icons/fc';
 import { AiFillGithub } from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../Redux/Authintication/action';
 
+import Loader from '../Component/Loader';
+
 const LoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const {isLoading} = useSelector(st=>st.authReducer);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
+  
   const {token,isAuth} = useSelector(st=>st.authReducer)
   console.log(isAuth);
   const handleEmailChange = (e) => {
@@ -30,20 +34,14 @@ const LoginPage = () => {
       password,
     };
 
-    dispatch(login(payload));
-    // axios
-    //   .post('https://reqres.in/api/login', payload)
-    //   .then((res) => {
-    //     console.log(res.data.token);
-    //   })
-    //   .catch((err) => {
-    //     console.log(err.message);
-    //   })
-    //   .finally((final) => {
-    //     console.log(final);
-    //   });
-    // console.log(payload);
+    dispatch(login(payload)).then((result) => {
+      navigate('/chat');
+    })
+    
   };
+  if(isLoading){
+    return <Loader/>
+  }
 console.log(token);
   return (
     <div className="flex justify-center items-center h-screen">
